@@ -53,7 +53,11 @@ const url = require('url');
     const dataObj =  JSON.parse(data);
 
   const server = http.createServer((req, res) => {
-  const pathName = req.url;
+  
+    console.log(req.url);
+    console.log(url.parse(req.url, true));
+    const pathName = req.url;
+
 
   //Overview page
   if(pathName === '/' || pathName === '/overview'){
