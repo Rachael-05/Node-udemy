@@ -53,11 +53,7 @@ const url = require('url');
     const dataObj =  JSON.parse(data);
 
   const server = http.createServer((req, res) => {
-  
-    console.log(req.url);
-    console.log(url.parse(req.url, true));
-    const pathName = req.url;
-
+    const { query, pathname } = url.parse(req.url, true);
 
   //Overview page
   if(pathName === '/' || pathName === '/overview'){
@@ -71,7 +67,10 @@ const url = require('url');
 
   //Product page
   }   else if (pathName === '/product') {
-    res.end('This is the product');
+    res.writeHead(200, { 'Content-type': 'text/html'});
+    const product = dataObj[query.id];
+    const output = replaceTemplate(tempProduct, product);
+    res.end(output);
 
   //API
   }   else if (pathName === '/api') {
